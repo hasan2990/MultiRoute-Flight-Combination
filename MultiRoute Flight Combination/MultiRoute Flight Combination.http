@@ -1,0 +1,6 @@
+@MultiRoute_Flight_Combination_HostAddress = http://localhost:5084
+
+GET {{MultiRoute_Flight_Combination_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
