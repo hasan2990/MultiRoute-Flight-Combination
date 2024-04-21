@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MultiRoute Flight Combination")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c547d079a03c49404b018ae883efcd424922ff94")]
 [assembly: System.Reflection.AssemblyProductAttribute("MultiRoute Flight Combination")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MultiRoute Flight Combination")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -2,6 +2,7 @@
 {
     public class FlightResponseModel
     {
+        public int TotalFlightCount {  get; set; }
         public decimal TotalPrice { get; set; }
         public decimal TotalBasePrice { get; set; }
         public decimal TotalTaxPrice { get; set; }

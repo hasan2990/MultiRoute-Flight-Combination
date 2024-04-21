@@ -16,8 +16,9 @@ namespace MultiRoute_Flight_Combination.Services.Implementations
 
             var flights = new List<FlightResponseModel>();
 
-          
-          var allPossibleCombinations = GetAllCombinations(_flightByRoutes.DirectionWiseFlight);
+            Dictionary<string, decimal> My_dict = new Dictionary<string, decimal>();
+
+            var allPossibleCombinations = GetAllCombinations(_flightByRoutes.DirectionWiseFlight);
 
             foreach (var comb in allPossibleCombinations)
             {
@@ -29,13 +30,28 @@ namespace MultiRoute_Flight_Combination.Services.Implementations
                     totalPrice += i.TotalPrice;
                     totalBasePrice += i.BasePrice;
                     totalTaxPrice += i.TaxPrice;
-                    taxBreakdowns.AddRange(i.TaxBreakDowns);
-                }
+                    //taxBreakdowns.AddRange(i.TaxBreakDowns);
+                    foreach(var j in i.TaxBreakDowns)
+                    {
+                        if(j != null)
+                        {
+                            if (My_dict.ContainsKey(j.Description))
+                            {
+                                My_dict[j.Description] += j.Tax;
+                            }
+                            else
+                            {
+                                My_dict[j.Description] = j.Tax;
 
-               /* var totalPrice = comb.Sum(onFlight => onFlight.TotalPrice);
-                var totalBasePrice = comb.Sum(onFlight => onFlight.BasePrice);
-                var totalTaxPrice = comb.Sum(onFlight => onFlight.TaxPrice);*/
-                //var taxBreakdowns = comb.SelectMany(onFlight => onFlight.TaxBreakDowns).ToList();
+                            }
+                        }
+                    }
+                }
+                foreach (var flight in My_dict)
+                {
+                    taxBreakdowns.Add(new TaxBreakDown { Tax = flight.Value, Description = flight.Key });
+                }
+                
 
                 var flightDetails = comb.Select(onFlight => new FlightDetails
                 {
@@ -50,15 +66,11 @@ namespace MultiRoute_Flight_Combination.Services.Implementations
 
                 var flightResponse = new FlightResponseModel
                 {
+                    TotalFlightCount = 1+flights.Count,
                     TotalPrice = totalPrice,
                     TotalBasePrice = totalBasePrice,
                     TotalTaxPrice = totalTaxPrice,
                     TaxBreakDowns = taxBreakdowns,
-
-                    /*TotalPrice = totalPrice,
-                    TotalBasePrice = totalBasePrice,
-                    TotalTaxPrice = totalTaxPrice,
-                    TaxBreakDowns = taxBreakdowns,*/
 
                     Flights = flightDetails,
                 };
